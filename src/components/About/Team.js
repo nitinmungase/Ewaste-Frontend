@@ -1,9 +1,9 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import photo1 from '../images/photo2.png';
-import photo2 from '../images/photo2.png';
-import photo3 from '../images/photo3.png';
-import "../App.css";
+import photo1 from '../../images/photo2.png';
+import photo2 from '../../images/photo2.png';
+import photo3 from '../../images/photo3.png';
+import "../../App.css";
 
 function Team() {
   return (

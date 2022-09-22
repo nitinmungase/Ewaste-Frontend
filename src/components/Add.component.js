@@ -1,7 +1,6 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import authService from "../services/auth.service";
 import userService from "../services/user.service";
-
 
 const Addcomponent = () => {
   const currentUser = authService.getCurrentUser();
@@ -12,7 +11,7 @@ const Addcomponent = () => {
     description: "",
     quantity: "",
     weight: "",
-    username:currentUser.username,
+    username: currentUser.username,
   });
   function submit(e) {
     e.preventDefault();
@@ -28,9 +27,8 @@ const Addcomponent = () => {
     setItem(newitem);
   }
 
-
   return (
-    <form >
+    <form>
       <div className="form-group">
         <input
           type="text"
@@ -72,8 +70,12 @@ const Addcomponent = () => {
         />
       </div>
 
-      <button type="button" className="btn btn-success my-4 mx-2" onClick={(e) => submit(e)}>
-       Add Record
+      <button
+        type="button"
+        className="btn btn-success my-4 mx-2"
+        onClick={(e) => submit(e)}
+      >
+        Add Record
       </button>
     </form>
   );

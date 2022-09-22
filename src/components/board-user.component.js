@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import UserService from "../services/user.service";
-//import EventBus from "../common/EventBus";
-import Addcomponent from "./Addcomponent";
+import Addcomponent from "./Add.component";
 import authService from "../services/auth.service";
 import { Link } from "react-router-dom";
-//import Editcomponent from "./Editcomponent";
+
+
 const BoardUser = () => {
   const [currentTutorial, setcurrentTutorial] = useState([]);
   const [title, setTitle] = useState("");
@@ -43,6 +43,7 @@ const BoardUser = () => {
   const [smShow, setSmShow] = useState(false);
   const [show, setShow] = useState(false);
   return (
+    <body  style={{paddingTop: 94 }} > 
     <div className="container">
       <header className="jumbotron pt-4">
         <div className="container ">
@@ -85,7 +86,6 @@ const BoardUser = () => {
                         <td>{getitems.quantity}</td>
                         <td>{getitems.weight}</td>
                         <td>
-                          {/*<i style={{ color: "#10ab80" }} className="material-icons">&#xE417;</i>*/}
                           <button
                             className="btn btn-light"
                             onClick={() => setSmShow(true)}
@@ -194,6 +194,7 @@ const BoardUser = () => {
       </Modal>
       {/* Ewaste Add Modal Finish*/}
     </div>
+    </body>
   );
 };
 

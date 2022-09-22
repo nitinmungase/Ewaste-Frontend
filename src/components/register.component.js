@@ -122,6 +122,7 @@ export default class Register extends Component {
 
   render() {
     return (
+      <body  style={{paddingTop: 94 }} >
       <div className="col-md-12">
         <div className="card card-container">
           <img
@@ -202,7 +203,7 @@ export default class Register extends Component {
             />
           </Form>
         </div>
-      </div>
+      </div></body>
     );
   }
 }

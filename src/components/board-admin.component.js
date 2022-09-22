@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-
 import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
 
 export default class BoardAdmin extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       content: "",
       currentTutorial: [],
@@ -16,19 +14,19 @@ export default class BoardAdmin extends Component {
   componentDidMount() {
     //const currentUser = authService.getCurrentUser();
     UserService.getAdminBoard().then(
-      response => {
+      (response) => {
         this.setState({
-          currentTutorial: response.data
+          currentTutorial: response.data,
         });
       },
-      error => {
+      (error) => {
         this.setState({
           content:
             (error.response &&
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString()
+            error.toString(),
         });
 
         if (error.response && error.response.status === 401) {
@@ -41,6 +39,7 @@ export default class BoardAdmin extends Component {
   render() {
     const { currentTutorial } = this.state;
     return (
+      <body  style={{paddingTop: 94 }} > 
       <div className="container">
         <header className="jumbotron pt-4">
           <div className="container ">
@@ -103,6 +102,7 @@ export default class BoardAdmin extends Component {
           </div>
         </header>
       </div>
+      </body>
     );
   }
 }

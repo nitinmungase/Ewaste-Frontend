@@ -1,11 +1,13 @@
 import React, {useState } from "react";
 import authService from "../services/auth.service";
 import userService from "../services/user.service";
+import BoardUser from "./board-user.component";
 
 
-const Addcomponent = () => {
+const Editcomponent = () => {
   const currentUser = authService.getCurrentUser();
 
+  
   //creating func to post data on server
   const [item, setItem] = useState({
     title: "",
@@ -13,9 +15,11 @@ const Addcomponent = () => {
     quantity: "",
     weight: "",
     username:currentUser.username,
+    
   });
   function submit(e) {
     e.preventDefault();
+    
     userService.create(item).then((response) => {
       console.log(response.item);
     });
@@ -30,7 +34,7 @@ const Addcomponent = () => {
 
 
   return (
-    <form >
+    <form onSubmit={(e) => submit(e)}>
       <div className="form-group">
         <input
           type="text"
@@ -72,11 +76,11 @@ const Addcomponent = () => {
         />
       </div>
 
-      <button type="button" className="btn btn-success my-4 mx-2" onClick={(e) => submit(e)}>
-       Add Record
+      <button type="submit" className="btn btn-success my-4 mx-2" >
+        Edit Record
       </button>
     </form>
   );
 };
 
-export default Addcomponent;
+export default Editcomponent;

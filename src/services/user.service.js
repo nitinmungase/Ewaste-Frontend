@@ -8,8 +8,8 @@ class UserService {
     return axios.get(API_URL + "all");
   }
 
-  getUserBoard() {
-    return axios.get(API_URL + "user", { headers: authHeader() });
+  getUserBoard(username) {
+    return axios.get(API_URL + `user/${username}`, { headers: authHeader() });
   }
 
   create(item) {
@@ -20,6 +20,12 @@ class UserService {
   delete(id) {
     console.log(id);
     return axios.delete(`api/test/user/${id}`, { headers: authHeader() });
+  }
+
+  update(data) {
+    //console.log(id);
+    console.log(data);
+    return axios.put(`api/test/user`,data, { headers: authHeader() });
   }
 
   getModeratorBoard() {

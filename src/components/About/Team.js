@@ -7,6 +7,7 @@ import "../../App.css";
 
 function Team() {
   return (
+    <div  style={{paddingTop: 94 }} > 
     <div className="py-5 team4">
       <div className="container">
         <div className="row justify-content-center mb-4">
@@ -249,6 +250,7 @@ function Team() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

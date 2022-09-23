@@ -66,77 +66,78 @@ class App extends Component {
       <>
       <div>
         <nav className="navbar fixed-top navbar-expand-lg navbar navbar-light">
-          <img src={companyLogo} alt="logo" height={80} />
-          <Link to={"/"} className="navbar-brand">
-          E-Waste Collection
+          <img src={companyLogo} alt="logo" height={100} />
+          <Link to={"/"} className="navbar-brand ">
+          <h3>E-Waste Collection</h3>
           </Link>
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
-            <button type="button" className="btn btn-success btn-sm ml-1">
-              <Link to={"/home"} className="nav-link fw-bolder ">
-                Home
+            <button type="button" className="btn btn-success p-0 fs-5 fw-bold">
+              <Link to={"/home"} className="nav-link ">
+                HOME
               </Link>
               </button>
             </li>
-            {showAdminBoard && (
+            
+          </div>
+
+          {currentUser ? (
+            <div className="navbar-nav ml-auto">
               <li className="nav-item">
-                <button type="button" className="btn btn-success btn-sm ml-1">
+              <button type="button" className="btn btn-success ml-1 p-0 fs-5">
+                <Link to={"/profile"} className="nav-link text-uppercase">
+                  {currentUser.username}
+                </Link></button>
+              </li>
+              {showAdminBoard && (
+              <li className="nav-item">
+                <button type="button" className="btn btn-success ml-1 p-0 fs-5">
                 <Link to={"/admin"} className="nav-link">
-                  Admin Board
+                  ADMIN BOARD
                 </Link></button>
               </li>
             )}
 
             {currentUser && (
               <li className="nav-item">
-                <button type="button" className="btn btn-success btn-sm ml-1">
+                <button type="button" className="btn btn-success ml-1 p-0 fs-5">
                 <Link to={"/user"} className="nav-link">
-                  DashBoard
+                  DASHBOARD
                 </Link></button>
               </li>
             )}
-          </div>
-
-          {currentUser ? (
-            <div className="navbar-nav ml-auto">
               <li className="nav-item">
-              <button type="button" className="btn btn-outline-success btn-sm ml-1">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.username}
-                </Link></button>
-              </li>
-              <li className="nav-item">
-              <button type="button" className="btn btn-outline-success btn-sm ml-1">
+              <button type="button" className="btn btn-success ml-1 p-0 fs-5">
                 <a href="/certificate" className="nav-link">
-                Certificate
+              CERTIFICATE
                 </a></button>
               </li>
               <li className="nav-item">
-              <button type="button" className="btn btn-outline-success btn-sm ml-1">
+              <button type="button" className="btn btn-success ml-1 p-0 fs-5">
                 <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
+                  LOGOUT
                 </a></button>
               </li>
             </div>
           ) : (
             <div className="navbar-nav ml-auto">
               <li className="nav-item">
-              <button type="button" className="btn btn-outline-success btn-sm ml-1">
+              <button type="button" className="btn btn-success ml-1 p-0 fs-5">
                 <Link to={"/login"} className="nav-link">
-                  Login
+                  LOGIN
                 </Link></button>
               </li>
 
               <li className="nav-item">
-              <button type="button" className="btn btn-outline-success btn-sm ml-1">
+              <button type="button" className="btn btn-success ml-1 p-0 fs-5">
                 <Link to={"/register"} className="nav-link">
-                  Sign Up
+                  SIGN UP
                 </Link></button>
               </li>
               <li className="nav-item">
-              <button type="button" className="btn btn-outline-success btn-sm ml-1">
+              <button type="button" className="btn btn-success ml-1 p-0 fs-5">
                 <Link to={"/team"} className="nav-link">
-                  Meet Team
+                  MEET TEAM
                 </Link></button>
               </li>
             </div>

@@ -1,45 +1,46 @@
-import React, { Component } from "react";
+import React, {useEffect, useState } from "react";
 import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
+import { Button, Modal } from "react-bootstrap";
+//import authService from "../services/auth.service";
+//import userService from "../services/user.service";
 
-export default class BoardAdmin extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      content: "",
-      currentTutorial: [],
-    };
-  }
-
-  componentDidMount() {
-    //const currentUser = authService.getCurrentUser();
+const BoardAdmin = () => {
+  const [currentDetails, setcurrentDetails] = useState([]);
+  const [userDetails, setUserDetails] = useState([]);
+  const [show, setShow] = useState(false);
+  
+ 
+  useEffect(() => {
+    
     UserService.getAdminBoard().then(
       (response) => {
-        this.setState({
-          currentTutorial: response.data,
-        });
+        setcurrentDetails(response.data);
+        //console.log(response);
       },
       (error) => {
-        this.setState({
-          content:
             (error.response &&
               error.response.data &&
               error.response.data.message) ||
             error.message ||
-            error.toString(),
-        });
-
+            error.toString();
         if (error.response && error.response.status === 401) {
           EventBus.dispatch("logout");
         }
       }
     );
+  }, []);
+
+  function submit(username) {
+    /*username.preventDefault();
+    userService.getUserDetails(username).then((response) => {
+      setUserDetails(response.data);
+    });
+  setShow(true)*/
   }
 
-  render() {
-    const { currentTutorial } = this.state;
     return (
-      <body  style={{paddingTop: 94 }} > 
+      <div  style={{paddingTop: 94 }} > 
       <div className="container">
         <header className="jumbotron pt-4">
           <div className="container ">
@@ -70,10 +71,14 @@ export default class BoardAdmin extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {currentTutorial.map((getitems) => (
+                      {currentDetails.map((getitems) => (
                         <tr key={getitems.id}>
                           <td>{getitems.id}</td>
-                          <td>{getitems.username}</td>
+                          <td><button onClick={() => {
+                                  show(getitems.username);
+                                }}>
+                            {getitems.username}
+                            </button> </td>
                           <td>{getitems.title}</td>
                           <td>{getitems.description}</td>
                           <td>{getitems.quantity}</td>
@@ -84,7 +89,6 @@ export default class BoardAdmin extends Component {
                                 style={{ color: "red" }}
                                 onClick={() => {
                                   UserService.delete(getitems.id);
-                                  this.componentDidMount();
                                 }}
                                 className="material-icons"
                               >
@@ -101,8 +105,25 @@ export default class BoardAdmin extends Component {
             </div>
           </div>
         </header>
+
+        {/* See User Details Modal*/}
+        <Modal show={show} onHide={() => setShow(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add Record</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="p-2">
+          <div>{userDetails.username}</div>
+          </Modal.Body>
+          <Modal.Footer className="p-1">
+            <Button variant="secondary" onClick={() => setShow(false)}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
+        {/* Ewaste Add Modal Finish*/}
       </div>
-      </body>
+      </div>
     );
   }
-}
+  export default BoardAdmin;
+

@@ -36,5 +36,8 @@ class UserService {
     return axios.get(API_URL + "admin", { headers: authHeader() });
   }
 }
+//getUserDetails(username) {
+ // return axios.get(API_URL + `user/${username}`, { headers: authHeader() });
+//}
 
 export default new UserService();

@@ -28,7 +28,7 @@ export default class Profile extends Component {
     const { currentUser } = this.state;
 
     return (
-      <body  style={{paddingTop: 94 }} > 
+      <div style={{paddingTop: 94 }} > 
       <div className="container">
         {(this.state.userReady) ?
         <div>
@@ -57,7 +57,7 @@ export default class Profile extends Component {
         </ul>
       </div>: null}
       </div>
-      </body>
+      </div>
     );
   }
 }

@@ -6,7 +6,7 @@ import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
 
-const required = value => {
+const required = (value) => {
   if (!value) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -16,7 +16,17 @@ const required = value => {
   }
 };
 
-const email = value => {
+const vfullname = (value) => {
+  if (value.length < 5 || value.length > 30) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The fullname must be between 5 and 30 characters.
+      </div>
+    );
+  }
+};
+
+const email = (value) => {
   if (!isEmail(value)) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -26,7 +36,7 @@ const email = value => {
   }
 };
 
-const vusername = value => {
+const vusername = (value) => {
   if (value.length < 3 || value.length > 20) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -36,7 +46,7 @@ const vusername = value => {
   }
 };
 
-const vpassword = value => {
+const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
       <div className="alert alert-danger" role="alert">
@@ -46,38 +56,71 @@ const vpassword = value => {
   }
 };
 
+const vmobilenumber = (value) => {
+  if (value.length < 9 || value.length > 10) {
+    return (
+      <div className="alert alert-danger" role="alert">
+        The Mobile Number Should Be 10 Digit.
+      </div>
+    );
+  }
+};
+
 export default class Register extends Component {
   constructor(props) {
     super(props);
     this.handleRegister = this.handleRegister.bind(this);
+    this.onChangeFullname = this.onChangeFullname.bind(this);
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onChangeMobile = this.onChangeMobile.bind(this);
+    this.onChangeAddress = this.onChangeAddress.bind(this);
 
     this.state = {
+      fullname: "",
       username: "",
       email: "",
       password: "",
+      mobile: "",
+      address: "",
       successful: false,
-      message: ""
+      message: "",
     };
   }
 
   onChangeUsername(e) {
     this.setState({
-      username: e.target.value
+      username: e.target.value,
+    });
+  }
+  onChangeFullname(e) {
+    this.setState({
+      fullname: e.target.value,
     });
   }
 
   onChangeEmail(e) {
     this.setState({
-      email: e.target.value
+      email: e.target.value,
     });
   }
 
   onChangePassword(e) {
     this.setState({
-      password: e.target.value
+      password: e.target.value,
+    });
+  }
+
+  onChangeMobile(e) {
+    this.setState({
+      mobile: e.target.value,
+    });
+  }
+
+  onChangeAddress(e) {
+    this.setState({
+      address: e.target.value,
     });
   }
 
@@ -86,24 +129,27 @@ export default class Register extends Component {
 
     this.setState({
       message: "",
-      successful: false
+      successful: false,
     });
 
     this.form.validateAll();
 
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.register(
+        this.state.fullname,
         this.state.username,
         this.state.email,
-        this.state.password
+        this.state.password,
+        this.state.mobile,
+        this.state.address,
       ).then(
-        response => {
+        (response) => {
           this.setState({
             message: response.data.message,
-            successful: true
+            successful: true,
           });
         },
-        error => {
+        (error) => {
           const resMessage =
             (error.response &&
               error.response.data &&
@@ -113,7 +159,7 @@ export default class Register extends Component {
 
           this.setState({
             successful: false,
-            message: resMessage
+            message: resMessage,
           });
         }
       );
@@ -122,88 +168,115 @@ export default class Register extends Component {
 
   render() {
     return (
-      <body  style={{paddingTop: 94 }} >
-      <div className="col-md-12">
-        <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
-
-          <Form
-            onSubmit={this.handleRegister}
-            ref={c => {
-              this.form = c;
-            }}
-          >
-            {!this.state.successful && (
-              <div>
-                <div className="form-group">
-                  <label htmlFor="username">Username</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.onChangeUsername}
-                    validations={[required, vusername]}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="email">Email</label>
-                  <Input
-                    type="text"
-                    className="form-control"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChangeEmail}
-                    validations={[required, email]}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="password">Password</label>
-                  <Input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChangePassword}
-                    validations={[required, vpassword]}
-                  />
-                </div>
-
-                <div className="form-group">
-                  <button className="btn btn-primary btn-block">Sign Up</button>
-                </div>
-              </div>
-            )}
-
-            {this.state.message && (
-              <div className="form-group">
-                <div
-                  className={
-                    this.state.successful
-                      ? "alert alert-success"
-                      : "alert alert-danger"
-                  }
-                  role="alert"
-                >
-                  {this.state.message}
-                </div>
-              </div>
-            )}
-            <CheckButton
-              style={{ display: "none" }}
-              ref={c => {
-                this.checkBtn = c;
-              }}
+      <div style={{ paddingTop: 80 }}>
+        <div className="col-md-12">
+          <div className="card card-container pt-2">
+            <img
+              src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+              alt="profile-img"
+              className="profile-img-card"
             />
-          </Form>
+
+            <Form
+              onSubmit={this.handleRegister}
+              ref={(c) => {
+                this.form = c;
+              }}
+            >
+              {!this.state.successful && (
+                <div>
+                  <div className="form-group mb-1 ">
+                    <label htmlFor="fullname">Full Name</label>
+                    <Input
+                      type="text"
+                      className="form-control "
+                      name="fullname"
+                      value={this.state.fullname}
+                      onChange={this.onChangeFullname}
+                      validations={[required, vfullname]}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="username">Username</label>
+                    <Input
+                      type="text"
+                      className="form-control"
+                      name="username"
+                      value={this.state.username}
+                      onChange={this.onChangeUsername}
+                      validations={[required, vusername]}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="email">Email</label>
+                    <Input
+                      type="text"
+                      className="form-control"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.onChangeEmail}
+                      validations={[required, email]}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <Input
+                      type="password"
+                      className="form-control"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.onChangePassword}
+                      validations={[required, vpassword]}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="mobile">Mobile Number</label>
+                    <Input
+                      type="mobile"
+                      className="form-control"
+                      name="mobile"
+                      value={this.state.mobile}
+                      onChange={this.onChangeMobile}
+                      validations={[required, vmobilenumber]}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <button className="btn btn-primary btn-block">
+                      Sign Up
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {this.state.message && (
+                <div className="form-group">
+                  <div
+                    className={
+                      this.state.successful
+                        ? "alert alert-success"
+                        : "alert alert-danger"
+                    }
+                    role="alert"
+                  >
+                    {this.state.message}
+                  </div>
+                </div>
+              )}
+              <CheckButton
+                style={{ display: "none" }}
+                ref={(c) => {
+                  this.checkBtn = c;
+                }}
+              />
+            </Form>
+          </div>
         </div>
-      </div></body>
+      </div>
     );
   }
 }

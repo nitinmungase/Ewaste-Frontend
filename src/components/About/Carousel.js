@@ -26,7 +26,7 @@ export default function Carousel() {
               <p className="carousel-desc">E-waste recycling is necessary but it should be conducted in a safe and standardized mano.
               <br />
               <br />
-              <button type="button" class="btn btn-outline-success">Read More</button></p>
+              <button type="button" className="btn btn-outline-success">Read More</button></p>
             </div>
           </div>
       
@@ -40,7 +40,7 @@ export default function Carousel() {
               <p className="carousel-desc">76 per cent workers in informal recycling operations in India suffer from respiratory ailments like asthma, bronchitis, choking, coughing, irritation, breathing difficulties and tremors among others.
               <br />
               <br />
-              <button type="button" class="btn btn-outline-success">Read More</button></p>
+              <button type="button" className="btn btn-outline-success">Read More</button></p>
             </div>
           </div>
       
@@ -53,7 +53,7 @@ export default function Carousel() {
               <p className="carousel-desc">For every 1 million smartphones recycled, 35,274 lbs of copper, 772 lbs of silver, 75 lbs of gold, and 33 lbs of palladium can be recovered.
               <br />
               <br />
-              <button type="button" class="btn btn-outline-success">Read More</button></p>
+              <button type="button" className="btn btn-outline-success">Read More</button></p>
             </div>
           </div>
       
@@ -67,7 +67,7 @@ export default function Carousel() {
               <p className="carousel-desc">E-Waste is the world’s most toxic and fastest growing waste stream.
               <br />
               <br />
-              <button type="button" class="btn btn-outline-success">Read More</button></p>
+              <button type="button" className="btn btn-outline-success">Read More</button></p>
             </div>
           </div>
         </div>
